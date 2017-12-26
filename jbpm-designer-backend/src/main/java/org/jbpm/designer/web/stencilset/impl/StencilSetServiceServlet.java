@@ -78,7 +78,10 @@ public class StencilSetServiceServlet extends HttpServlet {
                                                                       name);
 
         if (stencilset == null) {
-            throw new IllegalArgumentException("No stencilset by the name of " + name);
+            stencilset = _pluginService.findStencilSet(req, defaultName);
+            if (stencilset == null) {
+                throw new IllegalArgumentException("No stencilset by the name of " + name);
+            }
         }
         String applicationContext = ConfigurationProvider.getInstance().getDesignerContext().replaceAll("/",
                                                                                                         "");
